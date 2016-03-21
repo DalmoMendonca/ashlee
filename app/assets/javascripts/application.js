@@ -15,10 +15,9 @@
 //= require imagesloaded.pkgd.min.js
 //= require masonry.pkgd.min.js
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+var ready = function() {
 
 	var $container = $('.box');
 	$container.imagesLoaded( function () {
@@ -52,4 +51,8 @@ $(document).ready(function() {
 		$(this).css('background-color', random_light);
 	});
 
-});
+};
+
+$(document).ready(ready);
+//$(document).on('page:load', ready);
+
