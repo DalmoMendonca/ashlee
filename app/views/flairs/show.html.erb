@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @flair.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @flair.category %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @flair.content %>
+</p>
+
+<%= link_to 'Edit', edit_flair_path(@flair) %> |
+<%= link_to 'Back', flairs_path %>

@@ -1,0 +1,11 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+$navbar-default-bg: white;
+
+body {
+	padding-top: 60px;
+	padding-left: 10px;
+	padding-right: 10px;
+}

@@ -1,0 +1,26 @@
+<div class="row">
+  <% i = 1 %>
+  <% @flairs.each do |flair| %>
+    <div class="<%= i.to_s %> col-sm-6 col-md-4" style="display: none;">
+      <div class="thumbnail dot-ellipsis dot-resize-update">
+        <td>
+          <% if flair.category == "image" %>
+            <div class="thumbnail-image"><%= image_tag flair.content, style: 'width:100%;height:auto;' %></div>
+          <% elsif flair.category == "quote" %>
+            <div id="responsive" class="dot-ellipsis dot-resize-update caption">
+              <p style="align: center;"><%= simple_format(flair.content) %></p>
+            </div>
+          <% elsif flair.category == "video" %>
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="<%= flair.content %>" allowfullscreen></iframe>
+            </div>
+          <% end %>
+        </td>
+        <div id="responsive" class="dot-ellipsis dot-resize-update caption">
+          <h3><%= simple_format(flair.name) %></h3>
+        </div>
+      </div>
+    </div>
+    <% i += 1 %>
+  <% end %>
+</div>
