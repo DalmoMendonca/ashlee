@@ -1,31 +1,38 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Flairs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @flairs.each do |flair| %>
-      <tr>
-        <td><%= flair.name %></td>
-        <td><%= flair.category %></td>
-        <td><%= flair.content %></td>
-        <td><%= link_to 'Show', flair %></td>
-        <td><%= link_to 'Edit', edit_flair_path(flair) %></td>
-        <td><%= link_to 'Destroy', flair, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Flair', new_flair_path %>
+<h1>All Memories</h1>
+<div>
+  <%= link_to 'New Memory', new_flair_path, class: "btn btn-primary" %>
+</div>
+<div class="row box">
+  <% @flairs.each do |flair| %>
+    <div class="col-sm-6 col-md-4 item">
+      <div class="thumbnail dot-ellipsis dot-resize-update">
+        <td>
+          <% if flair.category == "image" %>
+            <div class="thumbnail-image"><%= image_tag flair.content, style: 'width:100%;height:auto;' %></div>
+          <% elsif flair.category == "quote" %>
+            <div id="responsive" class="quote dot-ellipsis dot-resize-update caption">
+              <p class="quote"><%= simple_format(flair.content) %></p>
+            </div>
+          <% elsif flair.category == "text" %>
+            <div id="responsive" class="text dot-ellipsis dot-resize-update caption">
+              <p><%= simple_format(flair.content) %></p>
+            </div>
+          <% elsif flair.category == "video" %>
+            <div class="embed-responsive embed-responsive-4by3">
+              <iframe class="embed-responsive-item" src="<%= flair.content %>" allowfullscreen></iframe>
+            </div>
+          <% end %>
+        </td>
+        <div id="responsive" class="dot-ellipsis dot-resize-update caption">
+          <h3><%= simple_format(flair.name) %></h3>
+        </div>
+        <div>
+          <%= link_to 'Edit', edit_flair_path(flair), class: "btn btn-primary" %>
+          <%= link_to 'Delete', flair, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
