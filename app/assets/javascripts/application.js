@@ -14,13 +14,19 @@
 //= require bootstrap-sprockets
 //= require imagesloaded.pkgd.min.js
 //= require masonry.pkgd.min.js
+//= require html2canvas.js
+//= require canvas2image.js
+//= require Blob.js
+//= require canvas-toBlob.js
+//= require FileSaver.min.js
+//= require base64.js
 //= require jquery_ujs
 //= require_tree .
 
 var ready = function() {
 
 	var $container = $('.box');
-	$container.imagesLoaded( function () {
+	$container.imagesLoaded(function() {
 	  $container.masonry({
 	    columnWidth: '.item',
 	    itemSelector: '.item'
@@ -29,14 +35,14 @@ var ready = function() {
 
 	var classNum = 1;
 	$('html').click(function() {
-	   $('.'+classNum).show(500);
-	   $container.masonry()
-	   //$('.'+classNum).attr('id', 'shown');
-	   classNum += 1;
+	  $('.'+classNum).show(500);
+		$container.masonry();
+		$("html, body").delay(50).animate({ scrollTop: $(document).height() });
+	  classNum += 1;
 	});
 
 	$('.col-sm-6').click(function(){
-	    event.stopPropagation();
+	  event.stopPropagation();
 	});
 
 	var darkColors = ['#47528f', '#8396b1', '#bda99c', '#8d5157', '#301322'];
@@ -50,6 +56,32 @@ var ready = function() {
 		var random_light = lightColors[Math.floor(Math.random() * lightColors.length)];
 		$(this).css('background-color', random_light);
 	});
+
+	$(function() { 
+    $(".btn-save").click(function() { 
+        html2canvas($('.box'), {
+        		proxy: "/proxy/get",
+        		allowTaint: true,
+            onrendered: function(canvas) {
+                theCanvas = canvas;
+                document.body.appendChild(canvas);
+
+                // Convert and download as image 
+                //Canvas2Image.saveAsPNG(canvas);
+
+                // Canvas to blob
+                ctx = canvas.getContext("2d");
+								canvas.toBlob(function(blob) {
+									saveAs(blob, "Ashlee Board.png");
+								});
+
+                //$('.11').append(canvas);
+                // Clean up 
+                document.body.removeChild(canvas);
+            }
+        });
+    });
+});
 
 };
 
